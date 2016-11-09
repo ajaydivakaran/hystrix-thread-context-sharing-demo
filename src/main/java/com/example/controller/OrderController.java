@@ -4,6 +4,9 @@ import com.example.model.OrderResponse;
 import com.example.service.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import rx.Observable;
+
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 public class OrderController {
@@ -15,7 +18,11 @@ public class OrderController {
     }
 
     @GetMapping("/orders")
-    public OrderResponse getOrders() {
-        return orderService.getOrders();
+    public CompletableFuture<OrderResponse> getOrders() {
+        final Observable<com.example.model.OrderResponse> responseObservable = orderService.getOrders();
+        return new RxJavaCompletableFuture<>(responseObservable);
     }
+
 }
+
+

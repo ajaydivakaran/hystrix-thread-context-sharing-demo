@@ -3,18 +3,20 @@ package com.example.service;
 import com.example.repository.command.OrderCommand;
 import com.example.repository.dto.order.OrderResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import rx.Observable;
 
 @Service
 public class OrderService {
-    private OrderCommand orderCommand;
+    private RestTemplate restTemplate;
 
-    public OrderService(OrderCommand orderCommand) {
-        this.orderCommand = orderCommand;
+    public OrderService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
-    public com.example.model.OrderResponse getOrders() {
-        final OrderResponse orderResponse = orderCommand.getOrders();
-        return new com.example.model.OrderResponse(orderResponse);
+    public Observable<com.example.model.OrderResponse> getOrders() {
+        final Observable<OrderResponse> orderResponse = new OrderCommand(restTemplate).observe();
+        return orderResponse.map(com.example.model.OrderResponse::new);
     }
 
 }

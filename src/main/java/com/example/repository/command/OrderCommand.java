@@ -1,19 +1,26 @@
 package com.example.repository.command;
 
 import com.example.repository.dto.order.OrderResponse;
-import org.springframework.stereotype.Service;
+import com.netflix.hystrix.HystrixCommand;
+import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixThreadPoolKey;
 import org.springframework.web.client.RestTemplate;
 
-@Service
-public class OrderCommand {
+public class OrderCommand extends HystrixCommand<OrderResponse> {
     private RestTemplate restTemplate;
 
     public OrderCommand(RestTemplate restTemplate) {
+        super(HystrixCommandGroupKey.Factory.asKey("getOrders"), HystrixThreadPoolKey.Factory.asKey("orderService"));
         this.restTemplate = restTemplate;
     }
 
-    public OrderResponse getOrders() {
+    @Override
+    public OrderResponse run() {
         return restTemplate.getForObject("http://localhost:5000/orders", OrderResponse.class);
     }
 
 }
+
+
+
+
