@@ -2,31 +2,21 @@ package com.example.client;
 
 import com.example.logging.CustomLogger;
 import com.example.logging.RequestCorrelation;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.client.ClientHttpRequestExecution;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.core.task.AsyncListenableTaskExecutor;
+import org.springframework.web.client.AsyncRestTemplate;
 
-import java.io.IOException;
 import java.util.Collections;
 
-@Component
-public class CorrelationIdAwareRestTemplateClient extends RestTemplate {
+public class CorrelationIdAwareRestTemplateClient extends AsyncRestTemplate {
 
 
-    public CorrelationIdAwareRestTemplateClient() {
-        super();
-        this.setInterceptors(Collections.singletonList(new ClientHttpRequestInterceptor() {
-            @Override
-            public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution
-                    execution) throws IOException {
-                final String id = RequestCorrelation.getId();
-                new CustomLogger().log("RestClient correlation id: " + id);
-                request.getHeaders().put("x-correlation-id", Collections.singletonList(id));
-                return execution.execute(request, body);
-            }
+    public CorrelationIdAwareRestTemplateClient(AsyncListenableTaskExecutor taskExecutor) {
+        super(taskExecutor);
+        this.setInterceptors(Collections.singletonList((request, body, execution) -> {
+            final String id = RequestCorrelation.getId();
+            new CustomLogger().log("RestClient correlation id: " + id);
+            request.getHeaders().put("x-correlation-id", Collections.singletonList(id));
+            return execution.executeAsync(request, body);
         }));
     }
 }

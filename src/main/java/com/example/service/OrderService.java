@@ -3,14 +3,14 @@ package com.example.service;
 import com.example.repository.command.OrderCommand;
 import com.example.repository.dto.order.OrderResponse;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.AsyncRestTemplate;
 import rx.Observable;
 
 @Service
 public class OrderService {
-    private RestTemplate restTemplate;
+    private AsyncRestTemplate restTemplate;
 
-    public OrderService(RestTemplate restTemplate) {
+    public OrderService(AsyncRestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
