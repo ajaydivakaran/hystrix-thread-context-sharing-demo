@@ -1,4 +1,6 @@
-package com.example.reporting;
+package com.example.hystrix;
+
+import com.example.logging.RequestCorrelation;
 
 import java.util.concurrent.Callable;
 

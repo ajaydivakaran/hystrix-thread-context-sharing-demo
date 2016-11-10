@@ -1,7 +1,7 @@
 package com.example;
 
-import com.example.reporting.CustomLogger;
-import com.example.reporting.RequestCorrelation;
+import com.example.logging.CustomLogger;
+import com.example.logging.RequestCorrelation;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.DispatcherType;

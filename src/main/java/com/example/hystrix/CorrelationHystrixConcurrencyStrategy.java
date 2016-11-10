@@ -1,4 +1,4 @@
-package com.example.reporting;
+package com.example.hystrix;
 
 import com.netflix.hystrix.strategy.concurrency.HystrixConcurrencyStrategy;
 

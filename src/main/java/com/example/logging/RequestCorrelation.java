@@ -1,4 +1,4 @@
-package com.example.reporting;
+package com.example.logging;
 
 public class RequestCorrelation {
 

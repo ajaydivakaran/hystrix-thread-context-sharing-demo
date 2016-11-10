@@ -1,7 +1,7 @@
 package com.example.client;
 
-import com.example.reporting.CustomLogger;
-import com.example.reporting.RequestCorrelation;
+import com.example.logging.CustomLogger;
+import com.example.logging.RequestCorrelation;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;

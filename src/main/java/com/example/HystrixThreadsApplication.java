@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.reporting.CorrelationHystrixConcurrencyStrategy;
+import com.example.hystrix.CorrelationHystrixConcurrencyStrategy;
 import com.netflix.hystrix.strategy.HystrixPlugins;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
