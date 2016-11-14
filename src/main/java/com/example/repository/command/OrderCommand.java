@@ -1,6 +1,6 @@
 package com.example.repository.command;
 
-import com.example.hystrix.ThreadContextAwareListenableFuture;
+import com.example.listenablefuture.ThreadContextAwareListenableFuture;
 import com.example.logging.CustomLogger;
 import com.example.repository.dto.order.OrderResponse;
 import com.netflix.hystrix.HystrixCommandGroupKey;

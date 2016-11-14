@@ -1,4 +1,4 @@
-package com.example.hystrix;
+package com.example.listenablefuture;
 
 import com.example.logging.RequestCorrelation;
 import org.springframework.util.concurrent.FailureCallback;
